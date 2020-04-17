@@ -1,10 +1,15 @@
-import React from 'react';
+import React from "react";
+import Nav from "./Nav";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-     Would you rethar
-    </div>
+    <Router>
+      <div className="App">
+        <Nav />
+        Would you rethar
+      </div>
+    </Router>
   );
 }
 
