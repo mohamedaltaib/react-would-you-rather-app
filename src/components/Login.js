@@ -1,4 +1,6 @@
 import React, { Fragment, createRef } from "react";
+import { connect } from "react-redux";
+import { authenticate } from "../actions/authedUser";
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,14 +12,22 @@ class Login extends React.Component {
     LogedUser: ""
   };
   componentDidMount() {
-    console.log(this.ref);
+    console.log(this.props);
+    // check if user is already authenticated redirect to Home screen
   }
 
   handleLogin = (e, id) => {
     e.preventDefault();
     console.log(id);
+    this.props.dispatch(authenticate(id));
   };
   render() {
+    const { users } = this.props;
+    const { authedUser } = this.props;
+    console.log(this.props);
+    if (authedUser !== null) {
+      this.props.history.push("/home");
+    }
     return (
       <Fragment>
         <div
@@ -30,7 +40,7 @@ class Login extends React.Component {
                 <div>
                   <div
                     className="ui card center "
-                    style={{ minWidth: "250px" }}
+                    style={{ minWidth: "350px" }}
                   >
                     <div className="content" style={{ minHeight: "250px" }}>
                       Welcome to the Would You Rather App! Please select user to
@@ -46,30 +56,23 @@ class Login extends React.Component {
                               Select User To Start
                               <i className="dropdown icon"></i>
                               <div className="menu">
-                                <div
-                                  className="item"
-                                  onClick={e => this.handleLogin(e, "id")}
-                                >
-                                  <img
-                                    className="ui avatar image"
-                                    src="avatars/johndoe.png"
-                                  />
-                                  Jenny Hess
-                                </div>
-                                <div className="item">
-                                  <div
-                                    className="ui avatar image"
-                                    src="avatars/johndoe.png"
-                                  />
-                                  Jenny Hess
-                                </div>
-                                <div className="item">
-                                  <div
-                                    className="ui avatar image"
-                                    src="avatars/johndoe.png"
-                                  />
-                                  Jenny Hess
-                                </div>
+                                {users.map(user => {
+                                  return (
+                                    <div
+                                      className="item"
+                                      key={user.id}
+                                      onClick={e =>
+                                        this.handleLogin(e, user.id)
+                                      }
+                                    >
+                                      <img
+                                        className="ui avatar image"
+                                        src={user.avatarURL}
+                                      />
+                                      {user.name}
+                                    </div>
+                                  );
+                                })}
                               </div>
                             </div>
                           </div>
@@ -89,4 +92,11 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+function mapStateToProps({}) {}
+
+export default connect(({ users, authedUser }) => {
+  return {
+    users: users !== undefined ? Object.values(users) : [],
+    authedUser
+  };
+})(Login);
