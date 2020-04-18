@@ -84,7 +84,7 @@ class Home extends React.Component {
                     <Question
                       key={question.id}
                       question={question}
-                      auther={users[authedUser].name}
+                      auther={users[question.author]}
                       answered={false}
                     />
                   );
@@ -98,7 +98,7 @@ class Home extends React.Component {
                     <Question
                       key={question.id}
                       question={question}
-                      auther={users[authedUser].name}
+                      auther={users[question.author]}
                       answered={true}
                     />
                   );
