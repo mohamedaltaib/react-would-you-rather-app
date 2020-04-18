@@ -24,7 +24,6 @@ class AnswerCard extends React.Component {
         params: { id }
       }
     } = this.props;
-    console.log("before dispatch");
     this.props.dispatch(handleAnswerQuestion(id, answerOption, authedUser));
     this.props.history.push(`/answerresults/${id}`);
   };
