@@ -7,7 +7,7 @@ class Nav extends React.Component {
   componentDidMount() {
     const { authedUser, history } = this.props;
     if (authedUser === null) {
-      history.push("/");
+      //history.push("/");
     }
   }
 
@@ -25,7 +25,7 @@ class Nav extends React.Component {
         <div className="ui secondary pointing menu">
           <Link
             to="/"
-            className={`item ` + (pathname === "/home" ? "active" : null)}
+            className={`item ` + (pathname === "/" ? "active" : null)}
           >
             Home
           </Link>
