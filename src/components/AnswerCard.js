@@ -3,7 +3,6 @@ import Nav from "./Nav";
 import { connect } from "react-redux";
 import { handleAnswerQuestion } from "../actions/questions";
 import { withRouter } from "react-router-dom";
-import { dispatch } from "rxjs/internal/observable/pairs";
 
 class AnswerCard extends React.Component {
   state = {
